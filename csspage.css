@@ -122,34 +122,37 @@ main::before {
 }
 
 /* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
+/* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
 @media screen and (max-width: 600px) {
   main {
-    padding: 80px 15px; /* تقليل الفراغ الكبير الذي يسبب التداخل */
+    padding: 80px 15px; 
   }
 
   main h1 {
-    font-size: 1.4rem; /* تصغير حجم الخط ليناسب عرض الشاشة */
+    font-size: 1.4rem; 
     line-height: 1.5;
   }
 
   .sidebar {
-    width: 250px; /* تصغير عرض الشريط الجانبي قليلاً */
+    width: 250px; 
   }
 
   .article {
-    width: 95%; /* جعل المقالات تأخذ أغلب مساحة العرض */
+    width: 95%; 
     padding: 15px;
     border-radius: 20px;
   }
 
   .article p {
-    font-size: 15px; /* تصغير الخط قليلاً لراحة العين */
+    font-size: 15px; 
     line-height: 1.6;
   }
 
+  /* التعديل هنا لإعادة الزر للأعلى */
   #toggleSidebar {
-    top: auto;
-    bottom: 20px; /* نقله للأسفل ليسهل الوصول إليه بالإبهام */
+    top: 125px;    /* إرجاعه للموضع العلوي */
+    bottom: auto;  /* إلغاء التموضع السفلي */
+    right: 15px;
     width: 45px;
     height: 45px;
     font-size: 20px;
