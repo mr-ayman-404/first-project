@@ -29,25 +29,19 @@ main::before {
   z-index: -1;
 }
 
-/* --- الشريط الجانبي Sidebar (التعديل النهائي هنا) --- */
+/* --- الشريط الجانبي Sidebar (الكود الذي كان يعمل تماماً) --- */
 .sidebar {
-  position: fixed; 
+  position: absolute; /* العودة للنمط الذي تفضله */
   top: 0;
   right: -300px;
-  width: 280px; 
-  height: 100%; /* تأكد أنها تغطي الارتفاع */
+  width: 250px;
+  height: 100%;
   background-color: rgb(8, 23, 70);
   color: white;
   padding: 20px;
   font-weight: bold;
-  z-index: 1000; 
-  transition: 0.3s ease; 
-
-  /* حل مشكلة الفيديو: تفعيل التمرير الداخلي ومنع سحب الخلفية */
-  overflow-y: auto; 
-  overscroll-behavior: contain; /* يمنع المتصفح من سحب الصفحة الخلفية عند سحب القائمة */
-  display: flex;
-  flex-direction: column;
+  transition: 0.3s;
+  z-index: 1000;
 }
 
 .sidebar.open {
@@ -58,8 +52,8 @@ main::before {
   display: block;
   color: white;
   text-decoration: none;
-  margin: 8px 0;
-  padding: 12px;
+  margin: 10px 0;
+  padding: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -92,7 +86,7 @@ main::before {
   color: black;
   font-weight: bolder;
   cursor: pointer;
-  margin-bottom: 30px; /* زيادة المسافة ليظهر ما تحته بوضوح */
+  margin-bottom: 20px;
 }
 
 /* --- تنسيق المقالات (Articles) --- */
@@ -125,28 +119,17 @@ main::before {
   line-height: 1.8;
 }
 
-/* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
+/* --- تحسينات الجوال (التي تضمن عدم اختفاء العناصر) --- */
 @media screen and (max-width: 600px) {
   main {
     padding: 80px 15px; 
   }
 
-  main h1 {
-    font-size: 1.4rem; 
-    line-height: 1.5;
-  }
-
+  /* هذا الجزء يضمن أن القائمة الجانبية تقبل التمرير إذا كانت طويلة */
   .sidebar {
-    width: 260px; 
-    padding: 15px;
-    /* تحسين السحب على شاشات اللمس */
-    -webkit-overflow-scrolling: touch; 
-  }
-
-  .sidebar a {
-    padding: 10px !important; 
-    font-size: 15px !important;
-    margin: 5px 0;
+    position: fixed; /* في الجوال فقط نحتاجه fixed ليظهر فوق المحتوى دائماً */
+    overflow-y: auto; 
+    height: 100vh;
   }
 
   .article {
@@ -160,6 +143,5 @@ main::before {
     right: 15px;
     width: 45px;
     height: 45px;
-    font-size: 20px;
   }
 }
