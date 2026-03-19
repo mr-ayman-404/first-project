@@ -4,12 +4,11 @@ body {
   font-size: large;
   background-color: rgb(230, 228, 228);
   margin: 0;
-  overflow-x: hidden; /* منع التمرير الجانبي */
+  overflow-x: hidden; /* منع التمرير الجانبي للموقع */
 }
 
 main {
   position: relative;
-  /* تغيير padding من 200px ثابتة إلى قيمة مرنة تناسب الشاشات */
   padding: 150px 20px; 
   text-align: center;
   display: flex;
@@ -31,19 +30,24 @@ main::before {
   z-index: -1;
 }
 
-/* --- الشريط الجانبي Sidebar --- */
+/* --- الشريط الجانبي Sidebar (تم التعديل هنا) --- */
 .sidebar {
-  position: fixed; /* تغيير إلى fixed لضمان الثبات في الجوال */
+  position: fixed; 
   top: 0;
   right: -300px;
-  width: 280px; /* تحديد عرض ثابت */
-  height: 100%;
+  width: 280px; 
+  height: 100vh; /* يأخذ كامل ارتفاع الشاشة */
   background-color: rgb(8, 23, 70);
   color: white;
   padding: 20px;
   font-weight: bold;
-  z-index: 1000; /* لضمان الظهور فوق المحتوى */
-  transition: 0.3s ease; /* إضافة نعومة في الحركة */
+  z-index: 1000; 
+  transition: 0.3s ease; 
+
+  /* حل مشكلة اختفاء الأزرار: يسمح بالتمرير داخل القائمة */
+  overflow-y: auto; 
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar.open {
@@ -102,7 +106,7 @@ main::before {
 
 .article {
   width: 100%;
-  max-width: 800px; /* العرض الأقصى للمقال */
+  max-width: 800px; 
   background: white;
   padding: 25px;
   border-radius: 30px;
@@ -122,7 +126,6 @@ main::before {
 }
 
 /* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
-/* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
 @media screen and (max-width: 600px) {
   main {
     padding: 80px 15px; 
@@ -135,6 +138,12 @@ main::before {
 
   .sidebar {
     width: 250px; 
+    padding: 15px; /* تقليل الحشو لزيادة المساحة */
+  }
+
+  .sidebar a {
+    padding: 10px !important; /* تقليل المسافة بين الأزرار */
+    font-size: 15px !important;
   }
 
   .article {
@@ -148,10 +157,10 @@ main::before {
     line-height: 1.6;
   }
 
-  /* التعديل هنا لإعادة الزر للأعلى */
+  /* زر القائمة يبقى في الأعلى كما طلبت */
   #toggleSidebar {
-    top: 125px;    /* إرجاعه للموضع العلوي */
-    bottom: auto;  /* إلغاء التموضع السفلي */
+    top: 125px;    
+    bottom: auto;  
     right: 15px;
     width: 45px;
     height: 45px;
