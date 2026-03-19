@@ -53,32 +53,34 @@ header .logo img:hover {
 /* --- تحسينات خاصة للجوال فقط --- */
 @media screen and (max-width: 600px) {
   header {
-    flex-direction: row; /* الحفاظ على الترتيب الأفقي */
-    flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد إذا ضاق المكان */
-    justify-content: center; /* توسيط العناصر في الجوال */
-    gap: 10px;
-    padding: 10px;
+    display: flex !important;
+    flex-direction: row !important; /* لضمان بقاء العناصر بجانب بعضها مثل صفحة المكتبة */
+    flex-wrap: nowrap !important; 
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 5px 10px !important; 
+    height: 60px !important; /* ارتفاع ثابت ونحيف */
   }
 
-  header .logo {
-    order: 1; /* الشعار أولاً */
-  }
-
-  header h1 {
-    order: 2;
-    font-size: 18px; /* تصغير العنوان أكثر في الجوال */
+  header .logo img {
+    height: 35px !important; /* تصغير الشعار */
     width: auto;
   }
 
+  header h1 {
+    font-size: 13px !important; /* خط صغير للعنوان ليبقى بجانب الشعار */
+    margin: 0;
+    white-space: nowrap;
+  }
+
   header nav {
-    order: 3;
-    width: 100%; /* جعل الروابط تأخذ سطر كامل أسفل الشعار والعنوان */
-    justify-content: center;
-    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    width: auto !important; /* منع الروابط من أخذ سطر كامل */
   }
 
   header nav a {
-    font-size: 14px; /* حجم خط مناسب لمتصفحات الجوال */
-    padding: 4px 8px;
+    font-size: 10px !important;
+    padding: 3px 6px !important;
   }
 }
