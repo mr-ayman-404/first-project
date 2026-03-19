@@ -1,17 +1,22 @@
-
-   /* Body و Main */
+/* --- Body و Main --- */
 
 body {
- font-size:large;
-  background-color:rgb(230, 228, 228);
+  font-size: large;
+  background-color: rgb(230, 228, 228);
   margin: 0;
+  overflow-x: hidden; /* منع التمرير الجانبي */
 }
 
 main {
   position: relative;
-  /* حجم الصورة */
-  padding: 200px;
+  /* تغيير padding من 200px ثابتة إلى قيمة مرنة تناسب الشاشات */
+  padding: 150px 20px; 
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
 }
 
 main::before {
@@ -26,79 +31,127 @@ main::before {
   z-index: -1;
 }
 
-/* الشريط الجانبي Sidebar */
+/* --- الشريط الجانبي Sidebar --- */
 .sidebar {
-  position:absolute;
+  position: fixed; /* تغيير إلى fixed لضمان الثبات في الجوال */
   top: 0;
   right: -300px;
+  width: 280px; /* تحديد عرض ثابت */
+  height: 100%;
   background-color: rgb(8, 23, 70);
   color: white;
   padding: 20px;
   font-weight: bold;
+  z-index: 1000; /* لضمان الظهور فوق المحتوى */
+  transition: 0.3s ease; /* إضافة نعومة في الحركة */
 }
 
 .sidebar.open {
   right: 0;
 }
+
 .sidebar a {
   display: block;
   color: white;
   text-decoration: none;
   margin: 10px 0;
   padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar a:hover {
-  background:black;
+  background: black;
 }
 
 #toggleSidebar {
   position: fixed;
-  top:125px;
+  top: 125px;
   right: 20px;
   font-size: 24px;
   width: 50px;
-  height: 40px;
+  height: 50px;
   border: none;
   border-radius: 50%;
   background: linear-gradient(135deg, #00c6ff, #0072ff);
   color: white;
   cursor: pointer;
+  z-index: 999;
 }
 
 #closeSidebar {
   display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
   border-radius: 50px;
-  background-color:white;
+  background-color: white;
   color: black;
   font-weight: bolder;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
-/* تنسيق المقالات (Articles)*/
+/* --- تنسيق المقالات (Articles) --- */
 .articles {
   display: flex;
-  flex-direction: column; /* ترتيب المقالات تحت بعض */
-  align-items: center; /* توسيط أفقي */
-  gap: 20px; /* مسافة بين المقالات */
-  padding: 50px;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 50px 20px;
 }
 
 .article {
-  max-width: 100%; /* العرض الأقصى للمقال */
+  width: 100%;
+  max-width: 800px; /* العرض الأقصى للمقال */
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 30px;
-  box-shadow: 0 5px 15px black;
-  text-align: center; /* محاذاة النص للوسط */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
 }
 
 .article h2 {
   color: brown;
+  margin-top: 0;
 }
 
 .article p {
-  color:black;
+  color: black;
   font-weight: bold;
-  line-height: 2;
+  line-height: 1.8;
+}
+
+/* --- تحسينات خاصة للجوال فقط (Media Queries) --- */
+@media screen and (max-width: 600px) {
+  main {
+    padding: 80px 15px; /* تقليل الفراغ الكبير الذي يسبب التداخل */
+  }
+
+  main h1 {
+    font-size: 1.4rem; /* تصغير حجم الخط ليناسب عرض الشاشة */
+    line-height: 1.5;
+  }
+
+  .sidebar {
+    width: 250px; /* تصغير عرض الشريط الجانبي قليلاً */
+  }
+
+  .article {
+    width: 95%; /* جعل المقالات تأخذ أغلب مساحة العرض */
+    padding: 15px;
+    border-radius: 20px;
+  }
+
+  .article p {
+    font-size: 15px; /* تصغير الخط قليلاً لراحة العين */
+    line-height: 1.6;
+  }
+
+  #toggleSidebar {
+    top: auto;
+    bottom: 20px; /* نقله للأسفل ليسهل الوصول إليه بالإبهام */
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
 }
