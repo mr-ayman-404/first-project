@@ -1,34 +1,37 @@
+/* --- التعديل الأساسي للهيدر --- */
 header {
   display: flex;
-  /* استخدام فليكس */
   justify-content: space-between;
-  /* توزيع العناصر: يمين - وسط - يسار */
   align-items: center;
-  /* محاذاة عمودية في الوسط */
-  padding: 15px 30px;
-  background: linear-gradient(135deg,
-      #003366 0%,
-      #001a33 100%);
-  /* تدرج أزرق غامق */
-
+  padding: 15px 20px; /* تقليل padding الجانبي ليناسب الجوال */
+  background: linear-gradient(135deg, #003366 0%, #001a33 100%);
+  position: relative;
+  z-index: 1001; /* لضمان بقائه فوق المحتوى */
 }
 
 /* العنوان */
 header h1 {
   color: white;
   margin: 0;
-  font-size: 24px;
+  font-size: 20px; /* تصغير الخط قليلاً للشاشات المتوسطة */
   font-weight: bold;
+  text-align: center;
 }
 
 /* شريط الروابط */
+header nav {
+  display: flex;
+  gap: 10px;
+}
+
 header nav a {
   color: white;
   text-decoration: none;
   font-weight: 600;
-  font-size: 20px;
-  padding: 8px 18px;
+  font-size: 16px; /* تصغير حجم الخط للروابط */
+  padding: 5px 10px;
   border-radius: 8px;
+  transition: 0.3s;
 }
 
 header nav a:hover {
@@ -38,10 +41,44 @@ header nav a:hover {
 
 /* الشعار */
 header .logo img {
-  height: 50px;
+  height: 45px; /* تصغير حجم الشعار قليلاً */
   border-radius: 8px;
+  transition: 0.3s;
 }
 
 header .logo img:hover {
-  transform: scale(110%);
+  transform: scale(1.1);
+}
+
+/* --- تحسينات خاصة للجوال فقط --- */
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: row; /* الحفاظ على الترتيب الأفقي */
+    flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد إذا ضاق المكان */
+    justify-content: center; /* توسيط العناصر في الجوال */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  header .logo {
+    order: 1; /* الشعار أولاً */
+  }
+
+  header h1 {
+    order: 2;
+    font-size: 18px; /* تصغير العنوان أكثر في الجوال */
+    width: auto;
+  }
+
+  header nav {
+    order: 3;
+    width: 100%; /* جعل الروابط تأخذ سطر كامل أسفل الشعار والعنوان */
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  header nav a {
+    font-size: 14px; /* حجم خط مناسب لمتصفحات الجوال */
+    padding: 4px 8px;
+  }
 }
