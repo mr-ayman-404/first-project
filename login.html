@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url("2.jpg") no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(9px) brightness(0.6);
+    }
+
+    .container {
+      position: relative;
+      background-color: white;
+      padding: 40px;
+      border-radius: 21px;
+      width: 400px;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      color: black;
+    }
+
+    .input-group {
+      text-align: right;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      padding-right: 35px;
+      border-radius: 8px;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: black;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 35px;
+      left: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: black;
+      user-select: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: blue;
+      color: white;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 14px;
+
+    }
+
+    .attempts,
+    .error,
+    .success {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      display: none;
+    }
+
+    .success {
+      color: green;
+      display: none;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+  <!-- الحاوي الرئيسي لكل محتوى الصفحة -->
+  <div class="container">
+    <h1>تسجيل الدخول الى الموقع</h1>
+    <!-- كل مجموعةinput+lableمع بعض -->
+    <div class="input-group">
+      <label for="username">اسم المستخدم</label>
+      <input type="text" id="username" placeholder="أدخل اسم المستخدم" />
+    </div>
+
+    <div class="input-group">
+      <label for="password">كلمة المرور</label>
+      <input type="password" id="password" placeholder="أدخل كلمة المرور" />
+      <!-- .زر صغير لاظهار او اخفاء كلمة المرور  -->
+      <span class="toggle-password" id="togglePassword">إظهار</span>
+    </div>
+    <!-- زر تسجيل الدخول -->
+    <button id="login-btn">دخول</button>
+
+    <!-- عرض عدد المحاولات المتبقية -->
+    <div class="attempts" id="attempts"></div>
+    <!-- رسالة الخطاء عند كتابة بيانات خاطئة -->
+    <div class="error" id="error-msg">
+      خطأ في اسم المستخدم أو كلمة المرور!
+    </div>
+    <!-- رسالة النجاح بعد تسجيل الدخول -->
+    <div class="success" id="success-msg">
+      مرحبًا بك،
+      <span id="user-name"></span>! سيتم تحويلك...
+      <!-- لعرض اسم المسستخدم  بعد تسجيل الدخول -->
+    </div>
+  </div>
+  <script>
+    const CORRECT_USERNAME = "admin";
+    const CORRECT_PASSWORD = "1234";
+    const REDIRECT_URL = "ind.html"; // يمكنك تغييره حسب الحاجة
+    let attemptsLeft = 4;
+
+    //الوصول الى عناصر html
+    //كل متغير هنا يمثل عنصر HTML
+    //  يمكننا التعامل معه
+    // (قراءة القيم أو تعديل النصوص أو الخصائص).
+    //document الصفحة كلها
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const loginBtn = document.getElementById("login-btn");
+    const errorMsg = document.getElementById("error-msg");
+    const successMsg = document.getElementById("success-msg");
+    const userNameDisplay = document.getElementById("user-name");
+    const attemptsDisplay = document.getElementById("attempts");
+    const togglePassword = document.getElementById("togglePassword");
+    //تحديث عدد المحاولات
+    //يتم استدعاء الدالة مرة واحدة عند تحميل الصفحة
+    function updateAttempts() {
+      attemptsDisplay.textContent = `عدد المحاولات المتبقية: ${attemptsLeft}`;
+    }
+    function handleLogin() {
+      const enteredUsername = usernameInput.value.trim();
+      const enteredPassword = passwordInput.value.trim();
+
+      if (enteredUsername === "" || enteredPassword === "") {
+        errorMsg.textContent = "يرجى إدخال اسم المستخدم وكلمة المرور.";
+        errorMsg.style.display = "block";
+        return; // اخرج من الدالة ولا تخصم محاولة
+      }
+      errorMsg.style.display = "none";
+      successMsg.style.display = "none";
+
+      //لتاخير الكود لمدة 1ثانية <محاكة التحميل>
+      setTimeout(
+        //الانتظار هذا الاول للتحقق من البيانات
+        () => {
+          if (
+            enteredUsername === CORRECT_USERNAME &&
+            enteredPassword === CORRECT_PASSWORD
+          ) {
+            //اذا كانت كلمة المرور صحيحة اظهر رسالة ترحيب باسم المستخدم
+            userNameDisplay.textContent = enteredUsername;
+            //اعرض رسالة ترحيب
+            successMsg.style.display = "block";
+            //ننتظر ثانيتين ثم ننتقل الى صفحة اخرى
+            setTimeout(() =>
+            //يعطي المستخدم وقت وقت قصير لقراء رسالة
+            //الانتظار الثاني لعرض رسالة النجاح ثم الانتقال
+            {
+              //"حوّل الصفحة الحالية إلى العنوان (URL) المخزن في REDIRECT_URL".
+              window.location.href = REDIRECT_URL;
+            }, 2000);
+            //ميلي ثانية
+          } else {
+            //ننقص من عدد المحاولات المتبقية
+            attemptsLeft--;
+            //نحدد العداد الذي يظهر على الشاشة
+            updateAttempts();
+            //نعرض رسالة خطأ
+            errorMsg.style.display = "block";
+            //اذا انتهت عدد المحاولات
+            if (attemptsLeft === 0) {
+              //اذا انتهت المحاولات عطل حقول الادخال والازرار لمنع المحاولات
+              usernameInput.disabled = true;
+              //disabledخاصية الhtmlيعني تعطل الحقل
+              passwordInput.disabled = true;
+              loginBtn.disabled = true;
+              //تعرض رسالة انتهت عدد المحاولات حاول لاحقا
+              errorMsg.textContent =
+                "تم استنفاد جميع المحاولات. حاول لاحقًا.";
+            }
+          }
+        },
+        1000
+      );
+    }
+    loginBtn.addEventListener("click", handleLogin);
+    passwordInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter")
+        //e.keyاسم الزر الذي ضغطه المستخدم
+        handleLogin();
+    });
+    togglePassword.addEventListener("click", () => {
+      //() =>عندما لانحتاج الى معاملات
+      //=>يربط المعاملات بجسم الدالة
+      const type = passwordInput.getAttribute("type") === "password"
+        ? "text"
+        : "password";
+      passwordInput.setAttribute("type", type);
+      //تغيير النص الظاهر على الزر
+      togglePassword.textContent = type === "password" ? "إظهار" : "إخفاء";
+    });
+  </script>
+
+</body>
+
+</html>

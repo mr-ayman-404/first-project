@@ -1,0 +1,104 @@
+
+   /* Body و Main */
+
+body {
+ font-size:large;
+  background-color:rgb(230, 228, 228);
+  margin: 0;
+}
+
+main {
+  position: relative;
+  /* حجم الصورة */
+  padding: 200px;
+  text-align: center;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("2.jpg") center/cover no-repeat;
+  filter: blur(5px);
+  z-index: -1;
+}
+
+/* الشريط الجانبي Sidebar */
+.sidebar {
+  position:absolute;
+  top: 0;
+  right: -300px;
+  background-color: rgb(8, 23, 70);
+  color: white;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.sidebar.open {
+  right: 0;
+}
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 12px;
+}
+
+.sidebar a:hover {
+  background:black;
+}
+
+#toggleSidebar {
+  position: fixed;
+  top:125px;
+  right: 20px;
+  font-size: 24px;
+  width: 50px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  cursor: pointer;
+}
+
+#closeSidebar {
+  display: block;
+  border-radius: 50px;
+  background-color:white;
+  color: black;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+/* تنسيق المقالات (Articles)*/
+.articles {
+  display: flex;
+  flex-direction: column; /* ترتيب المقالات تحت بعض */
+  align-items: center; /* توسيط أفقي */
+  gap: 20px; /* مسافة بين المقالات */
+  padding: 50px;
+}
+
+.article {
+  max-width: 100%; /* العرض الأقصى للمقال */
+  background: white;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px black;
+  text-align: center; /* محاذاة النص للوسط */
+}
+
+.article h2 {
+  color: brown;
+}
+
+.article p {
+  color:black;
+  font-weight: bold;
+  line-height: 2;
+}

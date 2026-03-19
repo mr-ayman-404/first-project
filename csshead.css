@@ -1,0 +1,47 @@
+header {
+  display: flex;
+  /* استخدام فليكس */
+  justify-content: space-between;
+  /* توزيع العناصر: يمين - وسط - يسار */
+  align-items: center;
+  /* محاذاة عمودية في الوسط */
+  padding: 15px 30px;
+  background: linear-gradient(135deg,
+      #003366 0%,
+      #001a33 100%);
+  /* تدرج أزرق غامق */
+
+}
+
+/* العنوان */
+header h1 {
+  color: white;
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* شريط الروابط */
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 8px 18px;
+  border-radius: 8px;
+}
+
+header nav a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #bcaa0b;
+}
+
+/* الشعار */
+header .logo img {
+  height: 50px;
+  border-radius: 8px;
+}
+
+header .logo img:hover {
+  transform: scale(110%);
+}
